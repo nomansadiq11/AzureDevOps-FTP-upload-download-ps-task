@@ -22,6 +22,7 @@ $webclient.Credentials = New-Object System.Net.NetworkCredential($user,$pass)
                 $makeDirectory = [System.Net.WebRequest]::Create($ftp_uri+$relpath);
                 $makeDirectory.Credentials = New-Object System.Net.NetworkCredential($user,$pass)
                 $makeDirectory.Method = [System.Net.WebRequestMethods+FTP]::MakeDirectory;
+                $makeDirectory.UsePassive = $true;
                 $makeDirectory.GetResponse();
             }
             catch [Net.WebException]
