@@ -7,9 +7,6 @@ $pass = "dohbxlZqpwta:gm5cuvn"
 $path= $env:hellopakistan
 
 
-
-
-
  foreach($item in Get-ChildItem -recurse $path)
 {
     
@@ -26,9 +23,8 @@ $path= $env:hellopakistan
             $makeDirectory = [System.Net.WebRequest]::Create($ftp_uri+$relpath);
             $makeDirectory.Credentials = New-Object System.Net.NetworkCredential($user,$pass)
             $makeDirectory.Method = [System.Net.WebRequestMethods+FTP]::MakeDirectory;
-            # $makeDirectory.UsePassive = $true;
-            $makeDirectory.UseBinary = $true
-            $makeDirectory.UsePassive = $true
+            # $makeDirectory.UseBinary = $true
+            $makeDirectory.UsePassive = $false
             $makeDirectory.GetResponse();
         }
         catch [Net.WebException]
@@ -50,6 +46,13 @@ $path= $env:hellopakistan
     Write-Host "new url"
     $webclient.UploadFile($uri, $item.FullName)
     Write-Host "upl0ad done file "
+    $webclient.Dispose()
+    Write-Host "close connection"
+
+    Write-Host "2 sec wait start"
+    Start-Sleep -Seconds 2
+    Write-Host "2 sec wait end"
+
 
     
     
